@@ -26,7 +26,7 @@ namespace WalletConfig
     const std::string daemonName = "Mangocoind";
 
     /* The name to call this wallet */
-    const std::string walletName = "mngwallet";
+    const std::string walletName = "mangowallet";
 
     /* The name of service/walletd, the programmatic rpc interface to a
        wallet */
