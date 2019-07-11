@@ -8,7 +8,7 @@
 
 #include <Logger/Logger.h>
 
-struct ZedConfig
+struct Config
 {
     /* Was the wallet file specified on CLI */
     bool walletGiven = false;
@@ -37,4 +37,4 @@ struct ZedConfig
     unsigned int threads;
 };
 
-ZedConfig parseArguments(int argc, char **argv);
+Config parseArguments(int argc, char **argv);

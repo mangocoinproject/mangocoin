@@ -77,7 +77,7 @@ void cleanup(
 
 int main(int argc, char **argv)
 {
-    ZedConfig config = parseArguments(argc, argv);
+    Config config = parseArguments(argc, argv);
 
     Logger::logger.setLogLevel(config.logLevel);
 

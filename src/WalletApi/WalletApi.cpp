@@ -21,7 +21,7 @@
 
 int main(int argc, char **argv)
 {
-    ApiConfig config = parseArguments(argc, argv);
+    Config config = parseArguments(argc, argv);
 
     Logger::logger.setLogLevel(config.logLevel);
 

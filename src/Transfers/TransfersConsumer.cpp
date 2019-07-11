@@ -18,7 +18,7 @@
 
 #include <config/Constants.h>
 
-#include "WalletGreenTypes.h"
+#include "IWallet.h"
 #include "INode.h"
 #include <future>
 

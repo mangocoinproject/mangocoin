@@ -8,7 +8,6 @@
 
 #include <Common/StringTools.h>
 
-#include <config/Config.h>
 #include <config/WalletConfig.h>
 
 #include <crypto/crypto.h>
@@ -185,7 +184,7 @@ void WalletSynchronizer::mainLoop()
                 lastCheckedLockedTransactions = now;
             }
 
-            Utilities::sleepUnlessStopping(std::chrono::seconds(5), m_shouldStop);
+            std::this_thread::sleep_for(std::chrono::seconds(5));
         }
     }
 }
@@ -312,10 +311,10 @@ std::vector<std::tuple<Crypto::PublicKey, WalletTypes::TransactionInput>> Wallet
 {
     std::vector<std::tuple<Crypto::PublicKey, WalletTypes::TransactionInput>> inputs;
 
-    if (!Config::config.wallet.skipCoinbaseTransactions && block.coinbaseTransaction)
+    if (WalletConfig::processCoinbaseTransactions)
     {
         const auto newInputs = processTransactionOutputs(
-            *(block.coinbaseTransaction), block.blockHeight
+            block.coinbaseTransaction, block.blockHeight
         );
 
         inputs.insert(inputs.end(), newInputs.begin(), newInputs.end());
@@ -335,13 +334,11 @@ void WalletSynchronizer::completeBlockProcessing(
     const WalletTypes::WalletBlockInfo &block,
     const std::vector<std::tuple<Crypto::PublicKey, WalletTypes::TransactionInput>> &ourInputs)
 {
-    const uint64_t walletHeight = m_blockDownloader.getHeight();
-
     /* Chain forked, invalidate previous transactions */
-    if (walletHeight >= block.blockHeight && block.blockHeight != 0)
+    if (m_blockDownloader.getHeight() >= block.blockHeight && block.blockHeight != 0)
     {
         Logger::logger.log(
-            "Blockchain forked, resolving... (Old height: " + std::to_string(walletHeight) + ", new height: " + std::to_string(block.blockHeight) + ")",
+            "Blockchain forked, resolving...",
             Logger::INFO,
             {Logger::SYNC}
         );
@@ -429,7 +426,7 @@ BlockScanTmpInfo WalletSynchronizer::processBlockTransactions(
 {
     BlockScanTmpInfo txData;
 
-    if (!Config::config.wallet.skipCoinbaseTransactions)
+    if (WalletConfig::processCoinbaseTransactions)
     {
         const auto tx = processCoinbaseTransaction(block, inputs);
 
@@ -466,7 +463,7 @@ std::optional<WalletTypes::Transaction> WalletSynchronizer::processCoinbaseTrans
     const WalletTypes::WalletBlockInfo &block,
     const std::vector<std::tuple<Crypto::PublicKey, WalletTypes::TransactionInput>> &inputs) const
 {
-    const auto tx = *(block.coinbaseTransaction);
+    const auto tx = block.coinbaseTransaction;
 
     std::unordered_map<Crypto::PublicKey, int64_t> transfers;
 

@@ -21,11 +21,10 @@
 
 #include <Mnemonics/Mnemonics.h>
 
-#include <Utilities/ColouredMsg.h>
 #include <Utilities/FormatTools.h>
-#include <Utilities/ParseExtra.h>
 
 #include <zedwallet/AddressBook.h>
+#include <Utilities/ColouredMsg.h>
 #include <zedwallet/Commands.h>
 #include <zedwallet/Fusion.h>
 #include <zedwallet/Menu.h>
@@ -436,7 +435,7 @@ void printOutgoingTransfer(CryptoNote::WalletTransaction t,
               << WarningMsg("Total Spent: " + formatAmount(-t.totalAmount))
               << std::endl;
 
-    const std::string paymentID = Utilities::getPaymentIDFromExtra(Common::asBinaryArray(t.extra));
+    const std::string paymentID = getPaymentIDFromExtra(t.extra);
 
     if (paymentID != "")
     {
@@ -468,7 +467,7 @@ void printIncomingTransfer(CryptoNote::WalletTransaction t,
     std::cout << SuccessMsg("Amount: " + formatAmount(t.totalAmount))
               << std::endl;
 
-    const std::string paymentID = Utilities::getPaymentIDFromExtra(Common::asBinaryArray(t.extra));
+    const std::string paymentID = getPaymentIDFromExtra(t.extra);
 
     if (paymentID != "")
     {

@@ -57,6 +57,7 @@ NetNodeConfig::NetNodeConfig() {
   allowLocalIp = false;
   hideMyPort = false;
   configFolder = Tools::getDefaultDataDirectory();
+  testnet = false;
   p2pStateReset = false;
 }
 
@@ -110,7 +111,15 @@ bool NetNodeConfig::init(const std::string interface, const int port, const int 
 }
 
 std::string NetNodeConfig::getP2pStateFilename() const {
+  if (testnet) {
+    return "testnet_" + p2pStateFilename;
+  }
+
   return p2pStateFilename;
+}
+
+bool NetNodeConfig::getTestnet() const {
+  return testnet;
 }
 
 bool NetNodeConfig::getP2pStateReset() const {

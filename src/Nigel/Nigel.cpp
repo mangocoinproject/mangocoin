@@ -107,16 +107,10 @@ void Nigel::resetRequestedBlockCount()
     m_blockCount = CryptoNote::BLOCKS_SYNCHRONIZING_DEFAULT_COUNT;
 }
 
-std::tuple<
-    bool,
-    std::vector<WalletTypes::WalletBlockInfo>,
-    std::optional<WalletTypes::TopBlock>
-> Nigel::getWalletSyncData(
-
+std::tuple<bool, std::vector<WalletTypes::WalletBlockInfo>> Nigel::getWalletSyncData(
     const std::vector<Crypto::Hash> blockHashCheckpoints,
-    const uint64_t startHeight,
-    const uint64_t startTimestamp,
-    const bool skipCoinbaseTransactions) const
+    uint64_t startHeight,
+    uint64_t startTimestamp) const
 {
     Logger::logger.log(
         "Fetching blocks from the daemon",
@@ -128,8 +122,7 @@ std::tuple<
         {"blockHashCheckpoints", blockHashCheckpoints},
         {"startHeight", startHeight},
         {"startTimestamp", startTimestamp},
-        {"blockCount", m_blockCount.load()},
-        {"skipCoinbaseTransactions", skipCoinbaseTransactions}
+        {"blockCount", m_blockCount.load()}
     };
 
     auto res = m_nodeClient->Post(
@@ -144,23 +137,12 @@ std::tuple<
 
             if (j.at("status").get<std::string>() != "OK")
             {
-                return {false, {}, std::nullopt};
+                return {false, {}};
             }
 
             const auto items = j.at("items").get<std::vector<WalletTypes::WalletBlockInfo>>();
 
-            if (j.find("synced") != j.end() 
-             && j.find("topBlock") != j.end()
-             && j.at("synced").get<bool>())
-            {
-                return {
-                    true,
-                    items,
-                    j.at("topBlock").get<WalletTypes::TopBlock>()
-                };
-            }
-
-            return {true, items, std::nullopt};
+            return {true, items};
         }
         catch (const json::exception &e)
         {
@@ -172,7 +154,7 @@ std::tuple<
         }
     }
 
-    return {false, {}, std::nullopt};
+    return {false, {}};
 }
 
 void Nigel::stop()

@@ -252,30 +252,16 @@ void SubWallet::markInputAsLocked(const Crypto::KeyImage keyImage)
     m_unspentInputs.erase(it);
 }
 
-std::vector<Crypto::KeyImage> SubWallet::removeForkedInputs(
-    const uint64_t forkHeight,
-    const bool isViewWallet)
+void SubWallet::removeForkedInputs(const uint64_t forkHeight)
 {
-    std::vector<Crypto::KeyImage> keyImagesToRemove;
-
-    for (const auto input : m_lockedInputs)
-    {
-        keyImagesToRemove.push_back(input.keyImage);
-    }
-
     /* Both of these will be resolved by the wallet in time */
     m_lockedInputs.clear();
     m_unconfirmedIncomingAmounts.clear();
 
     /* Unspent inputs which we recieved in a block after the fork. Remove them. */
     auto it = std::remove_if(m_unspentInputs.begin(), m_unspentInputs.end(),
-    [forkHeight, &keyImagesToRemove](const auto input)
+    [forkHeight](const auto input)
     {
-        if (input.blockHeight >= forkHeight)
-        {
-            keyImagesToRemove.push_back(input.keyImage);
-        }
-
         return input.blockHeight >= forkHeight;
     });
 
@@ -307,13 +293,6 @@ std::vector<Crypto::KeyImage> SubWallet::removeForkedInputs(
     {
         m_spentInputs.erase(it, m_spentInputs.end());
     }
-
-    if (isViewWallet)
-    {
-        return {};
-    }
-
-    return keyImagesToRemove;
 }
 
 /* Cancelled transactions are transactions we sent, but got cancelled and not

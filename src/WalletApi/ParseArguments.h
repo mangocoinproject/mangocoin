@@ -8,7 +8,7 @@
 
 #include <Logger/Logger.h>
 
-struct ApiConfig
+struct Config
 {
     /* The IP to listen for requests on */
     std::string rpcBindIp;
@@ -28,4 +28,4 @@ struct ApiConfig
     unsigned int threads;
 };
 
-ApiConfig parseArguments(int argc, char **argv);
+Config parseArguments(int argc, char **argv);

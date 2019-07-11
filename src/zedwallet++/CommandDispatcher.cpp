@@ -141,10 +141,6 @@ bool handleCommand(
 
         transfer(walletBackend, sendAll);
     }
-    else if (command == "set_log_level")
-    {
-        setLogLevel();
-    }
     else if (command == "status")
     {
         status(walletBackend);
@@ -164,7 +160,7 @@ bool handleCommand(
 
 std::shared_ptr<WalletBackend> handleLaunchCommand(
     const std::string launchCommand,
-    const ZedConfig &config)
+    const Config &config)
 {
     if (launchCommand == "create")
     {

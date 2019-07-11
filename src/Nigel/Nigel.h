@@ -68,15 +68,10 @@ class Nigel
 
         std::tuple<std::string, uint16_t, bool> nodeAddress() const;
 
-        std::tuple<
-            bool,
-            std::vector<WalletTypes::WalletBlockInfo>,
-            std::optional<WalletTypes::TopBlock>
-        > getWalletSyncData(
+        std::tuple<bool, std::vector<WalletTypes::WalletBlockInfo>> getWalletSyncData(
             const std::vector<Crypto::Hash> blockHashCheckpoints,
-            const uint64_t startHeight,
-            const uint64_t startTimestamp,
-            const bool skipCoinbaseTransactions) const;
+            uint64_t startHeight,
+            uint64_t startTimestamp) const;
 
         /* Returns a bool on success or not */
         bool getTransactionsStatus(

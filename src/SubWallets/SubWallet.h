@@ -84,9 +84,7 @@ class SubWallet
 
         void markInputAsLocked(const Crypto::KeyImage keyImage);
 
-        std::vector<Crypto::KeyImage> removeForkedInputs(
-            const uint64_t forkHeight,
-            const bool isViewWallet);
+        void removeForkedInputs(const uint64_t forkHeight);
 
         void removeCancelledTransactions(const std::unordered_set<Crypto::Hash> cancelledTransactions);
 
