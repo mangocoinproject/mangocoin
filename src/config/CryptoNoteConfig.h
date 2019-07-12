@@ -273,7 +273,7 @@ const static   boost::uuids::uuid CRYPTONOTE_NETWORK         =
 };
 
 const char* const SEED_NODES[] = {
-  "3.16.129.54:57575",
-  "3.16.255.162:57575"
+  "ec2-3-16-129-54.us-east-2.compute.amazonaws.com:57575",
+  "ec2-3-16-255-162.us-east-2.compute.amazonaws.com:57575"
 };
 } // CryptoNote
