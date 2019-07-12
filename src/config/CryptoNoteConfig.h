@@ -66,7 +66,7 @@ Mangocoind --print-genesis-tx --genesis-block-reward-address mv2Fyavy8CXG8BPEbNe
 * You should see your premine appear in the previously generated wallet.
 
 */
-const char     GENESIS_COINBASE_TX_HEX[]                     = "010a01ff000188f3b501029b2e4c0281c0b02e7c53291a94d1d0cbff8883f8024f5142ee494ffbbd088071210142694232c5b04151d9e4c27d31ec7a68ea568b19488cfcb422659a07a0e44dd5";
+const char     GENESIS_COINBASE_TX_HEX[]                     = "013c01ff00018080a0b197bcc5c605026a1d4df03fcf0a5f1217c1f499bd6331e029881810d2517f311821bd9e9eba602101d484476aa1924d385b29314e78ba06f0f03573d10b90c222884fc05868deef2d";
 static_assert(sizeof(GENESIS_COINBASE_TX_HEX)/sizeof(*GENESIS_COINBASE_TX_HEX) != 1, "GENESIS_COINBASE_TX_HEX must not be empty.");
 
 /* This is the unix timestamp of the first "mined" block (technically block 2, not the genesis block)
