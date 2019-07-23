@@ -274,7 +274,7 @@ const static   boost::uuids::uuid CRYPTONOTE_NETWORK         =
 };
 
 const char* const SEED_NODES[] = {
-  "ec2-3-14-13-51.us-east-2.compute.amazonaws.com:11897",
-  "ec2-18-221-19-20.us-east-2.compute.amazonaws.com:11897"
+  "ec2-18-224-43-204.us-east-2.compute.amazonaws.com:11897",
+  "ec2-18-222-184-3.us-east-2.compute.amazonaws.com:11897"
 };
 } // CryptoNote
