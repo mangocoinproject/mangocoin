@@ -23,7 +23,7 @@ const uint32_t CRYPTONOTE_MAX_BLOCK_NUMBER                   = 500000000;
 const size_t   CRYPTONOTE_MAX_BLOCK_BLOB_SIZE                = 500000000;
 const size_t   CRYPTONOTE_MAX_TX_SIZE                        = 1000000000;
 const uint64_t CRYPTONOTE_PUBLIC_ADDRESS_BASE58_PREFIX       = 120; // 'M' address prefix
-const uint32_t CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW          = 60;
+const uint32_t CRYPTONOTE_MINED_MONEY_UNLOCK_WINDOW          = 20;
 const uint64_t CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT            = 60 * 60 * 2;
 const uint64_t CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V3         = 3 * DIFFICULTY_TARGET;
 const uint64_t CRYPTONOTE_BLOCK_FUTURE_TIME_LIMIT_V4         = 6 * DIFFICULTY_TARGET;
@@ -51,14 +51,14 @@ const uint64_t GENESIS_BLOCK_REWARD                          = UINT64_C(40000000
 
 * Compile your code
 
-* Run mngwallet, ignore that it can't connect to the daemon, and generate an
+* Run mangowallet, ignore that it can't connect to the daemon, and generate an
   address. Save this and the keys somewhere safe.
 
 * Launch the daemon with these arguments:
 --print-genesis-tx --genesis-block-reward-address <premine wallet address>
 
 For example:
-Mangocoind --print-genesis-tx --genesis-block-reward-address mv2Fyavy8CXG8BPEbNeCHFZ1fuDCYCZ3vW5H5LXN4K2M2MHUpTENip9bbavpHvvPwb4NDkBWrNgURAd5DB38FHXWZyoBh4wW
+Mangocoind --print-genesis-tx --genesis-block-reward-address MEpLh1LswBqihtwVB7VuYAQP7E39SYSwVQwFVyAjpGd6fdALVvZk74YTq5jTo4DNnTdkw2wcWCzJ2EtVJ9k9DhioBWQ7GGq
 
 * Take the hash printed, and replace it with the hash below in GENESIS_COINBASE_TX_HEX
 
@@ -211,7 +211,7 @@ const char     P2P_NET_DATA_FILENAME[]                       = "p2pstate.bin";
 const char     MINER_CONFIG_FILE_NAME[]                      = "miner_conf.json";
 } // parameters
 
-const char     CRYPTONOTE_NAME[]                             = "Mangocoin";
+const char     CRYPTONOTE_NAME[]                             = "mangocoin";
 
 const uint8_t  TRANSACTION_VERSION_1                         =  1;
 const uint8_t  TRANSACTION_VERSION_2                         =  2;
@@ -266,11 +266,11 @@ const uint64_t DATABASE_READ_BUFFER_MB_DEFAULT_SIZE          = 10;
 const uint32_t DATABASE_DEFAULT_MAX_OPEN_FILES               = 100;
 const uint16_t DATABASE_DEFAULT_BACKGROUND_THREADS_COUNT     = 2;
 
-const char     LATEST_VERSION_URL[]                          = "https://github.com/mangocoinproject/mangocoin/releases";
+const char     LATEST_VERSION_URL[]                          = "https://github.com/mangocoinproject/mangocoin/releases/latest";
 const std::string LICENSE_URL                                = "https://github.com/mangocoinproject/mangocoin/blob/master/LICENSE";
 const static   boost::uuids::uuid CRYPTONOTE_NETWORK         =
 {
-    {  0x15, 0xbc, 0x4f, 0x11, 0xbf, 0xf2, 0xd2, 0x01, 0xf0, 0xff, 0xd1, 0xaa, 0xbb, 0xcc, 0x00, 0xfa  }
+    {  0xa5, 0xb1, 0xff, 0x10, 0x00, 0xff, 0xc3, 0xd0, 0xac, 0xdc, 0xef, 0x15, 0x24, 0xc4, 0xf0, 0xa1  }
 };
 
 const char* const SEED_NODES[] = {
