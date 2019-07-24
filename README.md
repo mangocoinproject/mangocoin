@@ -1,6 +1,15 @@
+# Mangocoin (MNG)
+
+### Specs
+* Algorithm - Cryptonight Turtle (ASIC resistant)
+* Supply - 20,000,000,000
+* Decimals - 8
+* Blocktime - 120 seconds
+* Premine amount 20%
+
 ### Installing
 
-We offer binary images of the latest releases here: https://github.com/mangocoinproject/mangocoin/releases
+We offer binary images of the latest releases here: https://github.com/mangocoinproject/mangocoin/releases/latest
 
 If you would like to compile yourself, read on.
 
