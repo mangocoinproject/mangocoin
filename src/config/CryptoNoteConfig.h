@@ -277,5 +277,6 @@ const char* const SEED_NODES[] = {
   "194.247.190.95:11897",
   "ec2-18-224-43-204.us-east-2.compute.amazonaws.com:11897",
   "ec2-18-222-184-3.us-east-2.compute.amazonaws.com:11897"
+  "34.66.252.140:11897"
 };
 } // CryptoNote
