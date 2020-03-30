@@ -103,12 +103,12 @@ const uint32_t MIXIN_LIMITS_V3_HEIGHT                        = 100000;
 
 /* The mixin to use by default with zedwallet and turtle-service */
 /* DEFAULT_MIXIN_V0 is the mixin used before MIXIN_LIMITS_V1_HEIGHT is started */
-const uint64_t DEFAULT_MIXIN_V0                              = 0;
+const uint64_t DEFAULT_MIXIN_V0                              = 3;
 const uint64_t DEFAULT_MIXIN_V1                              = MAXIMUM_MIXIN_V1;
 const uint64_t DEFAULT_MIXIN_V2                              = MAXIMUM_MIXIN_V2;
 const uint64_t DEFAULT_MIXIN_V3                              = MAXIMUM_MIXIN_V3;
 
-const uint64_t DEFAULT_DUST_THRESHOLD                        = UINT64_C(100000);
+const uint64_t DEFAULT_DUST_THRESHOLD                        = UINT64_C(10000); //set lower to help with payment mixin issues
 const uint64_t DEFAULT_DUST_THRESHOLD_V2                     = UINT64_C(0);
 
 const uint32_t DUST_THRESHOLD_V2_HEIGHT                      = MIXIN_LIMITS_V2_HEIGHT;
@@ -139,9 +139,9 @@ const uint64_t MAX_EXTRA_SIZE_V2_HEIGHT                      = 1300000;
 /* For new projects forked from this code base, the values immediately below
    should be changed to 0 to prevent issues with transaction processing
    and other possible unexpected behavior */
-const uint64_t TRANSACTION_SIGNATURE_COUNT_VALIDATION_HEIGHT = 170000;
-const uint64_t BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT               = 170000;
-const uint64_t TRANSACTION_INPUT_BLOCKTIME_VALIDATION_HEIGHT = 170000;
+const uint64_t TRANSACTION_SIGNATURE_COUNT_VALIDATION_HEIGHT = 1700000;
+const uint64_t BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT               = 1700000;
+const uint64_t TRANSACTION_INPUT_BLOCKTIME_VALIDATION_HEIGHT = 1700000;
 
 /* This describes how many blocks of "wiggle" room transactions have regarding
    when the outputs can be spent based on a reasonable belief that the outputs
