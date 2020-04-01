@@ -73,7 +73,7 @@ static_assert(sizeof(GENESIS_COINBASE_TX_HEX)/sizeof(*GENESIS_COINBASE_TX_HEX) !
 /* This is the unix timestamp of the first "mined" block (technically block 2, not the genesis block)
    You can get this value by doing "print_block 2" in Mangocoind. It is used to know what timestamp
    to import from when the block height cannot be found in the node or the node is offline. */
-const uint64_t GENESIS_BLOCK_TIMESTAMP                       = 1562956646;
+const uint64_t GENESIS_BLOCK_TIMESTAMP                       = 1563994544; // removed turtlecoin's 1562956646
 
 const size_t   CRYPTONOTE_REWARD_BLOCKS_WINDOW               = 100;
 const size_t   CRYPTONOTE_BLOCK_GRANTED_FULL_REWARD_ZONE     = 100000; //size of block (bytes) after which reward for block calculated using block size
@@ -84,7 +84,7 @@ const size_t   CRYPTONOTE_COINBASE_BLOB_RESERVED_SIZE        = 600;
 
 const size_t   CRYPTONOTE_DISPLAY_DECIMAL_POINT              = 8;
 
-const uint64_t MINIMUM_FEE                                   = UINT64_C(100000000);
+const uint64_t MINIMUM_FEE                                   = UINT64_C(1000000);
 
 /* This section defines our minimum and maximum mixin counts required for transactions */
 const uint64_t MINIMUM_MIXIN_V1                              = 0;
@@ -139,9 +139,9 @@ const uint64_t MAX_EXTRA_SIZE_V2_HEIGHT                      = 1300000;
 /* For new projects forked from this code base, the values immediately below
    should be changed to 0 to prevent issues with transaction processing
    and other possible unexpected behavior */
-const uint64_t TRANSACTION_SIGNATURE_COUNT_VALIDATION_HEIGHT = 1700000;
-const uint64_t BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT               = 1700000;
-const uint64_t TRANSACTION_INPUT_BLOCKTIME_VALIDATION_HEIGHT = 1700000;
+const uint64_t TRANSACTION_SIGNATURE_COUNT_VALIDATION_HEIGHT = 1400000;
+const uint64_t BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT               = 1600000;
+const uint64_t TRANSACTION_INPUT_BLOCKTIME_VALIDATION_HEIGHT = 1600000;
 
 /* This describes how many blocks of "wiggle" room transactions have regarding
    when the outputs can be spent based on a reasonable belief that the outputs
@@ -159,8 +159,8 @@ const size_t   FUSION_TX_MIN_IN_OUT_COUNT_RATIO              = 4;
 
 const uint32_t UPGRADE_HEIGHT_V2                             = 1;
 const uint32_t UPGRADE_HEIGHT_V3                             = 2;
-const uint32_t UPGRADE_HEIGHT_V4                             = 3; // Upgrade height for CN-Lite Variant 1 switch. Changed from 350000
-const uint32_t UPGRADE_HEIGHT_V5                             = 4; // Upgrade height for CN-Turtle Variant 2 switch. Changed from 1200000
+const uint32_t UPGRADE_HEIGHT_V4                             = 3; // Upgrade height for CN-Lite Variant 1 switch.
+const uint32_t UPGRADE_HEIGHT_V5                             = 4; // Upgrade height for CN-Turtle Variant 2 switch.
 const uint32_t UPGRADE_HEIGHT_CURRENT                        = UPGRADE_HEIGHT_V5;
 
 const unsigned UPGRADE_VOTING_THRESHOLD                      = 90;               // percent
@@ -239,11 +239,11 @@ const size_t   P2P_LOCAL_GRAY_PEERLIST_LIMIT                 =  5000;
 
 // P2P Network Configuration Section - This defines our current P2P network version
 // and the minimum version for communication between nodes
-const uint8_t  P2P_CURRENT_VERSION                           = 5;
-const uint8_t  P2P_MINIMUM_VERSION                           = 4;
+const uint8_t  P2P_CURRENT_VERSION                           = 6; //5
+const uint8_t  P2P_MINIMUM_VERSION                           = 5; //4
 
 // This defines the minimum P2P version required for lite blocks propogation
-const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION            = 4;
+const uint8_t P2P_LITE_BLOCKS_PROPOGATION_VERSION            = 4; //4
 
 // This defines the number of versions ahead we must see peers before we start displaying
 // warning messages that we need to upgrade our software.
@@ -277,5 +277,7 @@ const char* const SEED_NODES[] = {
   "194.247.190.95:11897",
   "95.217.153.70:11897",
   "34.66.252.140:11897",
+  "35.224.155.95:11897",
+  "35.226.166.22:11897"
 };
 } // CryptoNote
