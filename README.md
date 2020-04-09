@@ -142,9 +142,9 @@ You can build for 32-bit or 64-bit Windows. **If you're not sure, pick 64-bit.**
 - Install the latest version of Boost (currently Boost 1.68). Select the appropriate version for your system:
   - [Boost 64-bit](https://bintray.com/boostorg/release/download_file?file_path=1.68.0%2Fbinaries%2Fboost_1_68_0-msvc-14.1-64.exe)
   - [Boost 32-bit](https://bintray.com/boostorg/release/download_file?file_path=1.68.0%2Fbinaries%2Fboost_1_68_0-msvc-14.1-32.exe)
-- Install the latest full version of OpenSSL (currently OpenSSL 1.1.1b). Select the appropriate version for your system:
-  - [OpenSSL 64-bit](https://slproweb.com/download/Win64OpenSSL-1_1_1c.exe)
-  - [OpenSSL 32-bit](https://slproweb.com/download/Win32OpenSSL-1_1_1c.exe)
+- Install the latest full version of OpenSSL (currently OpenSSL 1.1.1f). Select the appropriate version for your system:
+  - [OpenSSL 64-bit](https://slproweb.com/download/Win64OpenSSL-1_1_1f.exe)
+  - [OpenSSL 32-bit](https://slproweb.com/download/Win32OpenSSL-1_1_1f.exe)
 
 ##### Building
 
@@ -154,7 +154,7 @@ For 64-bit:
 - `mkdir build`
 - `cd build`
 - `set PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin";%PATH%`
-- `cmake -G "Visual Studio 15 2017 Win64" .. -DBOOST_ROOT=C:/local/boost_1_68_0`
+- `cmake -G "Visual Studio 15 2017 Win64" .. -DBOOST_ROOT=C:/local/boost_1_68_0 -DARCH=default`
 - `MSBuild Mangocoin.sln /p:Configuration=Release /m`
 
 For 32-bit:
@@ -163,7 +163,7 @@ For 32-bit:
 - `mkdir build`
 - `cd build`
 - `set PATH="C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\CommonExtensions\Microsoft\CMake\CMake\bin";%PATH%`
-- `cmake -G "Visual Studio 15 2017" .. -DBOOST_ROOT=C:/local/boost_1_68_0`
+- `cmake -G "Visual Studio 15 2017" .. -DBOOST_ROOT=C:/local/boost_1_68_0 -DARCH=default`
 - `MSBuild Mangocoin.sln /p:Configuration=Release /p:Platform=Win32 /m`
 
 The binaries will be in the `src/Release` folder when you are complete.
