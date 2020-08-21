@@ -106,7 +106,7 @@ const uint32_t MIXIN_LIMITS_V3_HEIGHT                        = 100000;
 const uint64_t DEFAULT_MIXIN_V0                              = 3;
 const uint64_t DEFAULT_MIXIN_V1                              = MAXIMUM_MIXIN_V1;
 const uint64_t DEFAULT_MIXIN_V2                              = MAXIMUM_MIXIN_V2;
-const uint64_t DEFAULT_MIXIN_V3                              = MAXIMUM_MIXIN_V3;
+const uint64_t DEFAULT_MIXIN_V3                              = MINIMUM_MIXIN_V3;
 
 const uint64_t DEFAULT_DUST_THRESHOLD                        = UINT64_C(10000);
 const uint64_t DEFAULT_DUST_THRESHOLD_V2                     = UINT64_C(0);
@@ -188,7 +188,7 @@ const uint64_t FORK_HEIGHTS[] =
 };
 
 /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
-const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX                 = 1;
+const uint64_t SOFTWARE_SUPPORTED_FORK_INDEX                 = 2;
 
 const uint64_t FORK_HEIGHTS_SIZE = sizeof(FORK_HEIGHTS) / sizeof(*FORK_HEIGHTS);
 
