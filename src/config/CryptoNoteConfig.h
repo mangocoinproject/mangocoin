@@ -124,7 +124,7 @@ namespace CryptoNote
         const uint64_t TRANSACTION_SIGNATURE_COUNT_VALIDATION_HEIGHT = 1400000;
         const uint64_t BLOCK_BLOB_SHUFFLE_CHECK_HEIGHT               = 1600000;
         const uint64_t TRANSACTION_INPUT_BLOCKTIME_VALIDATION_HEIGHT = 1600000;
-        const uint64_t MAX_OUTPUT_SIZE_HEIGHT                        = 700000;
+        const uint64_t MAX_OUTPUT_SIZE_HEIGHT                        = 687000;
 
         /* 5,000,000,000 MNG -> Max supply / mixin+1 outputs                 */
         /* This is enforced on the daemon side. An output > 2,500,000 causes an invalid block.   */
@@ -154,7 +154,7 @@ namespace CryptoNote
         const uint32_t UPGRADE_HEIGHT_V3                             = 2;
         const uint32_t UPGRADE_HEIGHT_V4                             = 3;       // Upgrade height for CN-Lite Variant 1 switch.
         const uint32_t UPGRADE_HEIGHT_V5                             = 4;       // Upgrade height for CN_Turtle Variant 2 switch.
-        const uint32_t UPGRADE_HEIGHT_V6                             = 300000;  // Upgrade height for ARGON2 switch.
+        const uint32_t UPGRADE_HEIGHT_V6                             = 287000;  // Upgrade height for ARGON2 switch.
         const uint32_t UPGRADE_HEIGHT_CURRENT                        = UPGRADE_HEIGHT_V6;
 
         const unsigned UPGRADE_VOTING_THRESHOLD                      = 90;      // percent
@@ -167,9 +167,9 @@ namespace CryptoNote
         const uint64_t FORK_HEIGHTS[] =
         {
              187000, //0
-             300000, //1 Chukwa and reward reduction
-             500000, //2
-	     700000  //3 Max output 
+             287000, //1 Chukwa and reward reduction
+             487000, //2
+	     687000  //3 Max output 
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */
