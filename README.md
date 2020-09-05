@@ -1,4 +1,10 @@
 # Mangocoin (MNG)
+* Algorithm - Chukwa/Argon2d (@ block 300,000)
+* Decimal - 8
+* Supply - 20,000,000,000
+* P2P Port - 11897
+* RPC Port - 11898
+
 ### Installing
 
 We offer binary images of the latest releases here: [https://github.com/mangocoinproject/mangocoin/releases/latest](https://github.com/mangocoinproject/mangocoin/releases/latest)
@@ -201,11 +207,11 @@ The binaries will be in the `src` folder when you're compile is done.
     ./Mangocoind --version
 
 #### Thanks
-Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, 2ACoin Community, Mangocoin Developers
+Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, Turtlecoin Developers, 2ACoin Community, Mangocoin Developers
 
 ### Copypasta for license when editing files
 
-Hi 2ACoin contributor, thanks for forking and sending back Pull Requests. Extensive docs about contributing are in the works or elsewhere. For now this is the bit we need to get into all the files we touch. Please add it to the top of the files, see [src/CryptoNoteConfig.h](https://github.com/mangocoincoin/mangocoin/blob/master/src/CryptoNoteConfig.h) for an example.
+Hi Mangocoin contributor, thanks for forking and sending back Pull Requests. Extensive docs about contributing are in the works or elsewhere. For now this is the bit we need to get into all the files we touch. Please add it to the top of the files, see [src/CryptoNoteConfig.h](https://github.com/mangocoincoin/mangocoin/blob/master/src/CryptoNoteConfig.h) for an example.
 
 
     // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers  
