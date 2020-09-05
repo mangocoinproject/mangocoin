@@ -1,25 +1,24 @@
 // Copyright (c) 2019, The TurtleCoin Developers
-// 
+//
 // Please see the included LICENSE file for more information.
 
 //////////////////////////////////////////
-#include <WalletBackend/BlockDownloader.h>
+#include <walletbackend/BlockDownloader.h>
 //////////////////////////////////////////
 
+#include <config/Config.h>
 #include <config/WalletConfig.h>
-
-#include <Logger/Logger.h>
-
-#include <Utilities/FormatTools.h>
-
-#include <WalletBackend/Constants.h>
+#include <logger/Logger.h>
+#include <utilities/FormatTools.h>
+#include <utilities/Utilities.h>
+#include <walletbackend/Constants.h>
 
 /* Constructor */
 BlockDownloader::BlockDownloader(
     const std::shared_ptr<Nigel> daemon,
     const std::shared_ptr<SubWallets> subWallets,
     const uint64_t startHeight,
-    const uint64_t startTimestamp) :
+    const uint64_t startTimestamp):
 
     m_daemon(daemon),
     m_subWallets(subWallets),
@@ -29,14 +28,14 @@ BlockDownloader::BlockDownloader(
 }
 
 /* Move constructor */
-BlockDownloader::BlockDownloader(BlockDownloader && old)
+BlockDownloader::BlockDownloader(BlockDownloader &&old)
 {
     /* Call the move assignment operator */
     *this = std::move(old);
 }
 
 /* Move assignment operator */
-BlockDownloader& BlockDownloader::operator=(BlockDownloader && old)
+BlockDownloader &BlockDownloader::operator=(BlockDownloader &&old)
 {
     /* Stop any running threads */
     stop();
@@ -66,6 +65,7 @@ BlockDownloader::~BlockDownloader()
 void BlockDownloader::start()
 {
     m_shouldStop = false;
+    m_storedBlocks.start();
     m_downloadThread = std::thread(&BlockDownloader::downloader, this);
 }
 
@@ -74,6 +74,7 @@ void BlockDownloader::stop()
     m_shouldStop = true;
     m_consumedData = true;
     m_shouldTryFetch.notify_one();
+    m_storedBlocks.stop();
 
     if (m_downloadThread.joinable())
     {
@@ -93,8 +94,7 @@ void BlockDownloader::downloader()
         {
             std::unique_lock<std::mutex> lock(m_mutex);
 
-            m_shouldTryFetch.wait(lock, [&]
-            {
+            m_shouldTryFetch.wait(lock, [&] {
                 if (m_shouldStop)
                 {
                     return true;
@@ -111,8 +111,11 @@ void BlockDownloader::downloader()
 
         while (shouldFetchMoreBlocks() && !m_shouldStop)
         {
-            if (!downloadBlocks())
+            const bool blocksDownloaded = downloadBlocks();
+
+            if (!blocksDownloaded)
             {
+                Utilities::sleepUnlessStopping(std::chrono::seconds(5), m_shouldStop);
                 break;
             }
         }
@@ -123,9 +126,7 @@ void BlockDownloader::downloader()
 
 bool BlockDownloader::shouldFetchMoreBlocks() const
 {
-    size_t ramUsage = m_storedBlocks.memoryUsage([](const auto block) {
-        return std::get<0>(block).memoryUsage();
-    });
+    size_t ramUsage = m_storedBlocks.memoryUsage([](const auto block) { return std::get<0>(block).memoryUsage(); });
 
     if (ramUsage + WalletConfig::maxBodyResponseSize < WalletConfig::blockStoreMemoryLimit)
     {
@@ -134,11 +135,7 @@ bool BlockDownloader::shouldFetchMoreBlocks() const
         stream << "Approximate ram usage of stored blocks: " << Utilities::prettyPrintBytes(ramUsage)
                << ", fetching more.";
 
-        Logger::logger.log(
-            stream.str(),
-            Logger::DEBUG,
-            {Logger::SYNC}
-        );
+        Logger::logger.log(stream.str(), Logger::DEBUG, {Logger::SYNC});
 
         return true;
     }
@@ -172,10 +169,7 @@ std::vector<std::tuple<WalletTypes::WalletBlockInfo, uint32_t>> BlockDownloader:
     const auto blocks = m_storedBlocks.front_n(blockCount);
 
     Logger::logger.log(
-        "Fetched " + std::to_string(blocks.size()) + " blocks from internal store",
-        Logger::DEBUG,
-        {Logger::SYNC}
-    );
+        "Fetched " + std::to_string(blocks.size()) + " blocks from internal store", Logger::DEBUG, {Logger::SYNC});
 
     return blocks;
 }
@@ -188,10 +182,8 @@ std::vector<Crypto::Hash> BlockDownloader::getStoredBlockCheckpoints() const
 
     result.resize(blocks.size());
 
-    std::transform(blocks.begin(), blocks.end(), result.begin(), [](const auto block)
-    {
-        return std::get<0>(block).blockHash;
-    });
+    std::transform(
+        blocks.begin(), blocks.end(), result.begin(), [](const auto block) { return std::get<0>(block).blockHash; });
 
     return result;
 }
@@ -215,12 +207,13 @@ std::vector<Crypto::Hash> BlockDownloader::getBlockCheckpoints() const
     {
         /* Copy the amount of hashes available, or the amount needed to make
            up the difference, whichever is less */
-        const size_t numToCopy = std::min(
-            recentProcessedBlockHashes.size(),
-            Constants::LAST_KNOWN_BLOCK_HASHES_SIZE - result.size()
-        );
+        const size_t numToCopy =
+            std::min(recentProcessedBlockHashes.size(), Constants::LAST_KNOWN_BLOCK_HASHES_SIZE - result.size());
 
-        std::copy(recentProcessedBlockHashes.begin(), recentProcessedBlockHashes.begin() + numToCopy, std::back_inserter(result));
+        std::copy(
+            recentProcessedBlockHashes.begin(),
+            recentProcessedBlockHashes.begin() + numToCopy,
+            std::back_inserter(result));
     }
 
     /* Infrequent checkpoints to handle deep forks */
@@ -248,35 +241,38 @@ bool BlockDownloader::downloadBlocks()
     {
         std::stringstream stream;
 
-        stream << "First checkpoint: " << blockCheckpoints.front()
-                  << "\nLast checkpoint: " << blockCheckpoints.back();
+        stream << "First checkpoint: " << blockCheckpoints.front() << "\nLast checkpoint: " << blockCheckpoints.back();
 
-        Logger::logger.log(
-            stream.str(),
-            Logger::DEBUG,
-            {Logger::SYNC}
-        );
+        Logger::logger.log(stream.str(), Logger::DEBUG, {Logger::SYNC});
     }
 
-    const auto [success, blocks] = m_daemon->getWalletSyncData(
-        blockCheckpoints, m_startHeight, m_startTimestamp
-    );
+    const auto [success, blocks, topBlock] = m_daemon->getWalletSyncData(
+        blockCheckpoints, m_startHeight, m_startTimestamp, Config::config.wallet.skipCoinbaseTransactions);
 
+    /* Synced, store the top block so sync status displayes correctly if
+       we are not scanning coinbase tx only blocks */
+    /* We can have an issue where we download a block, say, block 1000,
+       then because we have space for more blocks, we go to fetch more,
+       and this time get none, because we're synced. We then store the
+       topblock, which is also 1000, as having being processed, when in
+       fact, we're still waiting for it to be processed. So, if we only store
+       it if we have no blocks waiting to be processed, it fixes this issue */
+    if (success && blocks.empty() && topBlock && m_storedBlocks.size() == 0)
+    {
+        m_synchronizationStatus.storeBlockHash(topBlock->hash, topBlock->height);
+        return false;
+    }
     /* If we get no blocks, we are fully synced.
        (Or timed out/failed to get blocks)
        Sleep a bit so we don't spam the daemon. */
-    if (!success || blocks.empty())
+    else if (!success || blocks.empty())
     {
         /* We may have also failed because we requested
            more data than could be returned in a reasonable
            amount of time, so we'll back off a little bit */
         m_daemon->decreaseRequestedBlockCount();
 
-        Logger::logger.log(
-            "Zero blocks received from daemon, possibly fully synced",
-            Logger::DEBUG,
-            {Logger::SYNC}
-        );
+        Logger::logger.log("Zero blocks received from daemon, possibly fully synced", Logger::DEBUG, {Logger::SYNC});
 
         return false;
     }
@@ -295,50 +291,12 @@ bool BlockDownloader::downloadBlocks()
         m_subWallets->convertSyncTimestampToHeight(m_startTimestamp, m_startHeight);
     }
 
-    /* If checkpoints are empty, this is the first sync request. */
-    if (blockCheckpoints.empty())
-    {
-        /* Only check if a timestamp isn't given */
-        if (m_startTimestamp == 0)
-        {
-            /* Loop through the blocks we got back and make sure that
-               we were given data for the start block we were looking for */
-            const auto it = std::find_if(blocks.begin(), blocks.end(), [this](const auto &block) {
-                return block.blockHeight == m_startHeight;
-            });
-
-            /* If we weren't given a block with the startHeight we were
-               looking for then we don't need to store this data */
-            if (it == blocks.end())
-            {
-                std::stringstream stream;
-
-                stream << "Received unexpected block height from daemon. "
-                       << "Expected " << m_startHeight << ", but did not "
-                       << "receive that block. Not storing any blocks.";
-
-                Logger::logger.log(
-                    stream.str(),
-                    Logger::WARNING,
-                    {Logger::SYNC, Logger::DAEMON}
-                );
-
-                return false;
-            }
-        }
-    }
-
     std::stringstream stream;
 
-    stream << "Downloaded " << blocks.size() << " blocks from daemon, ["
-           << blocks.front().blockHeight << ", " << blocks.back().blockHeight
-           << "]";
+    stream << "Downloaded " << blocks.size() << " blocks from daemon, [" << blocks.front().blockHeight << ", "
+           << blocks.back().blockHeight << "]";
 
-    Logger::logger.log(
-        stream.str(),
-        Logger::DEBUG,
-        {Logger::SYNC}
-    );
+    Logger::logger.log(stream.str(), Logger::DEBUG, {Logger::SYNC});
 
     std::vector<std::tuple<WalletTypes::WalletBlockInfo, uint32_t>> blocksWithIndex;
 
@@ -352,10 +310,7 @@ bool BlockDownloader::downloadBlocks()
     return true;
 }
 
-void BlockDownloader::fromJSON(
-    const JSONObject &j,
-    const uint64_t startHeight,
-    const uint64_t startTimestamp)
+void BlockDownloader::fromJSON(const JSONObject &j, const uint64_t startHeight, const uint64_t startTimestamp)
 {
     m_synchronizationStatus.fromJSON(j);
     m_startHeight = startHeight;

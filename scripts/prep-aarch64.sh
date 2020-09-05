@@ -1,5 +1,6 @@
 #!/bin/bash
 # Copyright (c) 2019 The TurtleCoin Developers
+# Copyright (c) 2019 2ACoin Developers
 #
 # Please see the included LICENSE file for more information.
 

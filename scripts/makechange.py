@@ -12,17 +12,15 @@ $ sudo apt install python3.6
 $ python3.6 makechange.py
 
 Make two wallets and fill one or both with some funds, or start mining to it.
-Open the wallets with turtle-serivce like so:
+Open the wallets with 2acoin-service like so:
 
-./turtle-service -w walletA.wallet -p yourpass --rpc-password test --bind-port 8070
-./turtle-service -w walletB.wallet -p yourpass --rpc-password test --bind-port 8071
+./2acoin-service -w walletA.wallet -p yourpass --rpc-password test --daemon-port 17890 --bind-port 19760
+./2acoin-service -w walletB.wallet -p yourpass --rpc-password test --daemon-port 17890 --bind-port 19761
 
 Feel free to change these parameters if needed of course.
 
 This script rapidly sends random amount of funds from two wallets to each
 other, hopefully generating change on a new network.
-
-For Forks, see comments for adjusting amounts especially if using more than 2 decimals.
 '''
 
 import requests
@@ -33,11 +31,11 @@ import sys
 from threading import Thread
 
 # Forks adjust as needed
-moveDecimal = 100  # TRTL has 2 decimals so 100 is the divide/multiply factor
+moveDecimal = 100000000  # ARMS has 8 decimals so 100000000 is the divide/multiply factor
 minAmount = 100 * moveDecimal  # min number for amount to xfer
 maxAmount = 5000 * moveDecimal  # max number for amount to xfer
 anonymity = 3
-fee = 10 # atomic units, TRTL would be 0.10 as the tx network fee
+fee = 0005 # atomic units, ARMS would be 0.0005 as the tx network fee
 
 def getAddress(host, port, rpcPassword):
     payload = {
@@ -108,10 +106,10 @@ def sendTXs(host, port, rpcPassword, sender, receiver):
 
 
 walletdHostA = "127.0.0.1"
-walletdPortA = "8070"
+walletdPortA = "19760"
 
 walletdHostB = "127.0.0.1"
-walletdPortB = "8071"
+walletdPortB = "19761"
 
 rpcPasswordA = "test"
 rpcPasswordB = "test"

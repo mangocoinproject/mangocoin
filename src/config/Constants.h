@@ -1,15 +1,13 @@
 // Copyright (c) 2019, The TurtleCoin Developers
+// Copyright (c) 2019, 2ACoin Developers
 // 
 // Please see the included LICENSE file for more information.
 
 #pragma once
 
 #include <CryptoTypes.h>
-
 #include <vector>
 
-/* You can change things in this file, but you probably shouldn't. Leastways,
-   without knowing what you're doing. */
 namespace Constants
 {
     /* Amounts we make outputs into (Not mandatory, but a good idea) */
@@ -46,6 +44,9 @@ namespace Constants
     /* Indicates the following data is an extra nonce */
     const uint8_t TX_EXTRA_NONCE_IDENTIFIER = 0x02;
 
+    /* Indicates the following data is a merge mine depth+merkle root */
+    const uint8_t TX_EXTRA_MERGE_MINING_IDENTIFIER = 0x03;
+
     const Crypto::Hash NULL_HASH = Crypto::Hash({
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
@@ -66,4 +67,4 @@ namespace Constants
         0, 0, 0, 0, 0, 0, 0, 0,
         0, 0, 0, 0, 0, 0, 0, 0,
     });
-}
+} // namespace Constants

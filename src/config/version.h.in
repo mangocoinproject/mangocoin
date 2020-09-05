@@ -2,11 +2,11 @@
 #define STR(x) STR_HELPER(x)
 
 #define PROJECT_NAME "Mangocoin"
-#define PROJECT_SITE "http://github.com/mangocoinproject"
-#define PROJECT_COPYRIGHT "Copyright 2020, The Mangocoin Developers"
+#define PROJECT_SITE "https://github.com/mangocoinproject"
+#define PROJECT_COPYRIGHT "Copyright 2020, Mangocoin Developers"
 #define APP_VER_MAJOR 0
 #define APP_VER_MINOR 1
-#define APP_VER_REV 3
+#define APP_VER_REV 4
 #define APP_VER_BUILD 1287
 
 #define BUILD_COMMIT_ID "@VERSION@"
