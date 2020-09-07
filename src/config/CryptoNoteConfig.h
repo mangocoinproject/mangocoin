@@ -169,7 +169,7 @@ namespace CryptoNote
              187000, //0
              287000, //1 Chukwa and reward reduction
              487000, //2
-	     687000  //3 Max output 
+	     687000  //3 Max output
         };
 
         /* MAKE SURE TO UPDATE THIS VALUE WITH EVERY MAJOR RELEASE BEFORE A FORK */

@@ -1,9 +1,9 @@
 # Mangocoin (MNG)
-* Algorithm - Chukwa/Argon2d (@ block 300,000)
-* Decimal - 8
+## Specs
+* Algorithm - Chukwa (Argon2d) @ block 287,000
 * Supply - 20,000,000,000
-* P2P Port - 11897
-* RPC Port - 11898
+* Decimals - 8
+* Blocktime - 120 seconds
 
 ### Installing
 
@@ -17,7 +17,7 @@ If you would like to compile yourself, read on.
 
 The CMake build system will, by default, create optimized native builds for your particular system type when you build the software. Using this method, the binaries created provide a better experience and all together faster performance.
 
-However, if you wish to create portable binaries that can be shared between systems, specify `-DARCH=default` in your CMake arguments during the build process. Note that portable binaries will have a noticable difference in performance than native binaries. For this reason, it is always best to build for your particular system if possible.
+However, if you wish to create portable binaries that can be shared between systems, specify ``-DARCH=default` in your CMake arguments during the build process. Note that portable binaries will have a noticable difference in performance than native binaries. For this reason, it is always best to build for your particular system if possible.
 
 #### Linux
 
@@ -167,7 +167,7 @@ From the start menu, open 'x64 Native Tools Command Prompt for VS 2019'.
 
 From the start menu, open 'x86 Native Tools Command Prompt for VS 2019'.
 
-    cd <your_mangocoin_directory>
+    cd <your_piranha_directory>
     mkdir build
     cd build
     cmake -G "Visual Studio 16 2019" -A Win32 .. -DBOOST_ROOT=C:/local/boost_1_69_0
@@ -207,11 +207,11 @@ The binaries will be in the `src` folder when you're compile is done.
     ./Mangocoind --version
 
 #### Thanks
-Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, Turtlecoin Developers, 2ACoin Community, Mangocoin Developers
+Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, 2ACoin Community, Mangocoin Developers
 
 ### Copypasta for license when editing files
 
-Hi Mangocoin contributor, thanks for forking and sending back Pull Requests. Extensive docs about contributing are in the works or elsewhere. For now this is the bit we need to get into all the files we touch. Please add it to the top of the files, see [src/CryptoNoteConfig.h](https://github.com/mangocoincoin/mangocoin/blob/master/src/CryptoNoteConfig.h) for an example.
+Hi 2ACoin contributor, thanks for forking and sending back Pull Requests. Extensive docs about contributing are in the works or elsewhere. For now this is the bit we need to get into all the files we touch. Please add it to the top of the files, see [src/CryptoNoteConfig.h](https://github.com/mangocoinproject/mangocoin/blob/master/src/CryptoNoteConfig.h) for an example.
 
 
     // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers  
