@@ -1,8 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 # Copyright (c) 2018, The TurtleCoin Developers
-# Copyright (c) 2018, 2ACoin Developers
-# 
+# Copyright (c) 2020, Mangocoin Developers
+#
 # Please see the included LICENSE file for more information.
 
 import sys
@@ -23,10 +23,10 @@ def lastknownblock():
 
 
 def height():
-    base_url = 'http://localhost:17910/getheight'
+    base_url = 'http://localhost:11898/getheight'
     resp = requests.get(base_url).json()
     if 'height' not in resp:
-        print ('Unexpected response, make sure 2ACoind is running',
+        print ('Unexpected response, make sure Mangocoind is running',
                resp)
         sys.exit(-1)
     else:
@@ -34,7 +34,7 @@ def height():
 
 
 def rpc(method, params={}):
-    base_url = 'http://localhost:17910/json_rpc'
+    base_url = 'http://localhost:11898/json_rpc'
     payload = {
         'jsonrpc': '2.0',
         'id': 'block_info',
@@ -43,7 +43,7 @@ def rpc(method, params={}):
         }
     resp = requests.post(base_url, data=json.dumps(payload)).json()
     if 'result' not in resp:
-        print ('Unexpected response, make sure 2ACoind is running with block explorer enabled'
+        print ('Unexpected response, make sure Mangocoind is running with block explorer enabled'
                , resp)
         sys.exit(-1)
     else:

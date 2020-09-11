@@ -1,11 +1,11 @@
-# USAGE: Start 2acoin-service as you usually would
+# USAGE: Start mangocoin-service as you usually would
 # then run `python optimize.py --address $ADDRESS --port $PORT --password $RPCPASS`
 # replacing $ADDRESS, $PORT AND $RPCPASS with your values
-from 2acoincoin import Walletd as Wallet
+from mangocoincoin import Walletd as Wallet
 import time
 import argparse
 parser = argparse.ArgumentParser()
-parser.add_argument("--address", help="2ACoin address to optimize", required=True)
+parser.add_argument("--address", help="Mangocoin address to optimize", required=True)
 parser.add_argument("--port", type=int, help="Wallet port", required=False, default=8070)
 parser.add_argument("--password", help="Wallet RPC Password", required=True)
 parser.add_argument("--wait", type=int, help="Time to wait between fusions", required=False, default=5)

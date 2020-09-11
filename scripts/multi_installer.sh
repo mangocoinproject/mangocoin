@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 
 # Copyright (c) 2018, The TurtleCoin Developers
-# Copyright (c) 2018, 2ACoin Developers
-# 
+# Copyright (c) 2020, Mangocoin Developers
+#
 # Please see the included LICENSE file for more information.
 # Multi-installer
-# a one line clone-and-compile for 2acoin:
+# a one line clone-and-compile for Mangocoin:
 #
-#     ` $ curl -sL "https://raw.githubusercontent.com/2acoin/2acoin/master/scripts/multi_installer.sh" | bash
+#     ` $ curl -sL "https://raw.githubusercontent.com/mangocoinproject/mangocoin/master/scripts/multi_installer.sh" | bash
 #
 # Supports Ubuntu 16.04 LTS, OSX 10.10+
 # Supports building project from current directory (automatic detection)
@@ -35,7 +35,7 @@ _note() {
 _fail() {
     local msg=`echo \'$1\'`
     _colorize red "Failure: $msg" | tee -a build.log && echo
-    _colorize red "Please check build.log and if you need help check out the team discord @ 'https://discord.gg/9SkNZwc'" && echo
+    _colorize red "Please check build.log and if you need help check out the team discord @ 'https://discord.gg/'" && echo
     _colorize purple "Exiting script" && echo
     exit 1
 }
@@ -45,26 +45,26 @@ _set_wd() {
         _note "Building project from current working directory ($PWD)"
     else
         _note "Cloning project with git..."
-        if [ -d "$PWD"/2acoin ]; then
-            read -r -p "${1:-2acoin directory already exists. Overwrite? [y/N]} " response
+        if [ -d "$PWD"/mangocoin ]; then
+            read -r -p "${1:-Mangocoin directory already exists. Overwrite? [y/N]} " response
             case "$response" in
                 [yY][eE][sS|[yY])
-                    _colorize red "Overwriting old 2acoin directory" && echo
-                    rm -rf "$PWD"/2acoin
+                    _colorize red "Overwriting old Mangocoin directory" && echo
+                    rm -rf "$PWD"/mangocoin
                     ;;
                 *)
-                    _fail "2acoin directory already exists. Aborting..."
+                    _fail "Mangocoin directory already exists. Aborting..."
                     ;;
             esac
         fi
-        mkdir 2acoin
-        git clone -b master https://github.com/2acoin/2acoin 2acoin   >>build.log 2>&1 || _fail "Unable to clone git repository. Please see build.log for more information"
-        cd 2acoin
+        mkdir mangocoin
+        git clone -b master https://github.com/mangocoinproject/mangocoin mangocoin   >>build.log 2>&1 || _fail "Unable to clone git repository. Please see build.log for more information"
+        cd mangocoin
     fi
 }
 
-_build_2acoin() {
-    _note "Building 2acoin from source (this might take a while)..."
+_build_mangocoin() {
+    _note "Building Mangocoin from source (this might take a while)..."
     if [ -d build ]; then
         _colorize red "Overwriting old build directory" && echo
         rm -rf build
@@ -113,7 +113,7 @@ _configure_linux() {
     elif [ "$(awk -F= '/^NAME/{print $2}' /etc/os-release)" = "\"Debian GNU/Linux\"" ]; then
         _configure_debian
     else
-        _fail "Your OS version isn't supported by this installer. Please consider adding support for your OS to the project ('https://github.com/2acoin')"
+        _fail "Your OS version isn't supported by this installer. Please consider adding support for your OS to the project ('https://github.com/mangocoinproject')"
     fi
 }
 
@@ -142,19 +142,19 @@ _configure_os() {
             _configure_osx
             ;;
         *)
-            _fail "This installer only runs on OSX 10.10+ and Ubuntu 16.04+. Please consider adding support for your OS to the project ('https://github.com/2acoin')"
+            _fail "This installer only runs on OSX 10.10+ and Ubuntu 16.04+. Please consider adding support for your OS to the project ('https://github.com/mangocoinproject')"
             ;;
     esac
     _note "Operating system configuration completed. You're halfway there!"
 }
 
-_note "2ACoin Multi_Installer v1.0 (angus)"
+_note "Mangocoin Multi_Installer v1.0 (angus)"
 _colorize green " _______         _   _       _____      _       \n|__   __|       | | | |     / ____|    (_)      \n   | |_   _ _ __| |_| | ___| |     ___  _ _ __  \n   | | | | | '__| __| |/ _ \ |    / _ \| | '_ \ \n   | | |_| | |  | |_| |  __/ |___| (_) | | | | |\n   |_|\__,_|_|   \__|_|\___|\_____\___/|_|_| |_|\n" && echo
 
 _configure_os
 
 _set_wd
-_build_2acoin
+_build_mangocoin
 
 _note "Installation complete!"
-_note "Look in '2acoin/build/src/' for the executible binaries. See 'https://github.com/2acoin/2acoin' for more project support. Good Job Man!"
+_note "Look in 'mangocoin/build/src/' for the executible binaries. See 'https://github.com/mangocoinproject/mangocoin' for more project support. Good Job Man!"

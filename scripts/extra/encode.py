@@ -3,9 +3,9 @@ import ujson as json
 import sys
 import binascii
 
-to_address = "gunsChty5KeJS86aJhsFxo998BUtnCPPmEeGLvJ6R6cSJaXXpf8We2XJFk38GgVJpZTH9eqMgvoC5SNcCG7j1BzB1xVXQErhki"
+to_address = "MEpLh1LswBqihtwVB7VuYAQP7E39SYSwVQwFVyAjpGd6fdALVvZk74YTq5jTo4DNnTdkw2wcWCzJ2EtVJ9k9DhioBWQ7GGq"
 content = """
-2ACoin
+Mangocoin
 """
 
 def rpc(method, params={}):
@@ -21,7 +21,7 @@ def rpc(method, params={}):
     try:
         response = requests.post(base_url, data=json.dumps(payload)).json()
     except Exception as e:
-        print("Doesn't seem like 2acoin-service is running. {}".format(response))
+        print("Doesn't seem like mangocoin-service is running. {}".format(response))
         sys.exit(1)
 
     if 'error' in response:
