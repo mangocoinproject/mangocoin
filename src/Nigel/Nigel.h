@@ -1,5 +1,5 @@
 // Copyright (c) 2018-2019, The TurtleCoin Developers
-// Copyright (c) 2020, Mangocoin Developers
+// Copyright (c) 2018-2019, 2ACoin Developers
 //
 // Please see the included LICENSE file for more information.
 
@@ -127,7 +127,7 @@ class Nigel
     std::atomic<uint64_t> m_lastKnownHashrate = 0;
 
     /* Whether the daemon is a blockchain cache API
-       see: https://github.com/mangocoinproject/blockchain-cache-api */
+       see: https://github.com/2acoin/blockchain-cache-api */
     std::atomic<bool> m_isBlockchainCache = false;
 
     /* The address to send the node fee to (May be "") */

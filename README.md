@@ -207,7 +207,7 @@ The binaries will be in the `src` folder when you're compile is done.
     ./Mangocoind --version
 
 #### Thanks
-Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, Mangocoin Developers
+Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, Turtlecoin Community, Mangocoin Developers
 
 ### Copypasta for license when editing files
 
