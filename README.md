@@ -1,9 +1,4 @@
-# Mangocoin (MNG)
-## Specs
-* Algorithm - Chukwa (Argon2d) @ block 287,000
-* Supply - 20,000,000,000
-* Decimals - 8
-* Blocktime - 120 seconds
+### About Mangocoin
 
 ### Installing
 
@@ -17,7 +12,7 @@ If you would like to compile yourself, read on.
 
 The CMake build system will, by default, create optimized native builds for your particular system type when you build the software. Using this method, the binaries created provide a better experience and all together faster performance.
 
-However, if you wish to create portable binaries that can be shared between systems, specify `-DARCH=default` in your CMake arguments during the build process. Note that portable binaries will have a noticable difference in performance than native binaries. For this reason, it is always best to build for your particular system if possible.
+However, if you wish to create portable binaries that can be shared between systems, specify -DARCH=default in your CMake arguments during the build process. Note that portable binaries will have a noticable difference in performance than native binaries. For this reason, it is always best to build for your particular system if possible.
 
 #### Linux
 
@@ -157,7 +152,7 @@ You can build for 32-bit or 64-bit Windows. **If you're not sure, pick 64-bit.**
 
 From the start menu, open 'x64 Native Tools Command Prompt for VS 2019'.
 
-    cd <your_accoin_directory>
+    cd <your_mangocoin_directory>
     mkdir build
     cd build
     cmake -G "Visual Studio 16 2019" -A x64 .. -DBOOST_ROOT=C:/local/boost_1_69_0
@@ -167,7 +162,7 @@ From the start menu, open 'x64 Native Tools Command Prompt for VS 2019'.
 
 From the start menu, open 'x86 Native Tools Command Prompt for VS 2019'.
 
-    cd <your_piranha_directory>
+    cd <your_mangocoin_directory>
     mkdir build
     cd build
     cmake -G "Visual Studio 16 2019" -A Win32 .. -DBOOST_ROOT=C:/local/boost_1_69_0
@@ -207,7 +202,7 @@ The binaries will be in the `src` folder when you're compile is done.
     ./Mangocoind --version
 
 #### Thanks
-Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, Turtlecoin Community, Mangocoin Developers
+Cryptonote Developers, Bytecoin Developers, Monero Developers, Forknote Project, Mangocoin Community
 
 ### Copypasta for license when editing files
 
@@ -217,6 +212,6 @@ Hi Mangocoin contributor, thanks for forking and sending back Pull Requests. Ext
     // Copyright (c) 2012-2017, The CryptoNote developers, The Bytecoin developers  
     // Copyright (c) 2014-2018, The Monero Project  
     // Copyright (c) 2018-2019, The TurtleCoin Developers  
-    // Copyright (c) 2020, The Mangocoin Developers
+    // Copyright (c) 2020, The Mangocoin Developers  
     //
     // Please see the included LICENSE file for more information.
